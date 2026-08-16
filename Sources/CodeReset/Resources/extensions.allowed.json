@@ -1,9 +1,13 @@
 {
+    "dart-code": "stable",
     "github": "stable",
     "golang": "stable",
     "llvm-vs-code-extensions": "stable",
     "microsoft": "stable",
     "redhat": "stable",
     "rust-lang": "stable",
-    "swiftlang": "stable"
+    "swiftlang": "stable",
+    "richie5um2.vscode-sort-json": [
+        "1.20.0"
+    ]
 }
