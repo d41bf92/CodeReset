@@ -1,0 +1,11 @@
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: swift build --configuration release
+      - uses: actions/upload-artifact@v7
+        with:
+          path: .build/arm64-apple-macosx/release/code-reset
+          compression-level: 9
