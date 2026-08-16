@@ -16,7 +16,13 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "CodeReset",
-            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")])
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ],
+            resources: [
+                .embedInCode("Resources/extensions.allowed.json")
+            ],
+        )
     ],
     swiftLanguageModes: [.v6]
 )

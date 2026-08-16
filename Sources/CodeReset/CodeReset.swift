@@ -88,10 +88,11 @@ struct CodeProfilePayload: Codable {
     var PayloadIdentifier: String
     var PayloadUUID: String
     var PayloadDisplayName: String
+    var AllowedExtensions: String
     var ExtensionsAutoUpdate: String
-    var UpdateMode: String
-    var TelemetryLevel: String
     var EnableFeedback: Bool
+    var TelemetryLevel: String
+    var UpdateMode: String
 }
 
 func createProfile() throws -> URL {
@@ -103,10 +104,13 @@ func createProfile() throws -> URL {
         PayloadIdentifier: "com.microsoft.VSCode.\(uuid.uuidString)",
         PayloadUUID: uuid.uuidString,
         PayloadDisplayName: "Visual Studio Code",
+        AllowedExtensions: String(
+            data: Data(PackageResources.extensions_allowed_json), encoding: .utf8)!,
         ExtensionsAutoUpdate: "off",
-        UpdateMode: "manual",
+        EnableFeedback: false,
         TelemetryLevel: "off",
-        EnableFeedback: false)
+        UpdateMode: "manual",
+    )
 
     let profile = CodeProfile(
         PayloadContent: [profilePayload],
@@ -115,7 +119,8 @@ func createProfile() throws -> URL {
         PayloadIdentifier: "com.microsoft.VSCode",
         PayloadUUID: UUID().uuidString,
         PayloadType: "Configuration",
-        PayloadVersion: 1)
+        PayloadVersion: 1,
+    )
 
     let profileURL = FileManager.default.temporaryDirectory.appending(
         component: "com.microsoft.VSCode.mobileconfig")

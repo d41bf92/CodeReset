@@ -1,0 +1,9 @@
+{
+    "github": "stable",
+    "golang": "stable",
+    "llvm-vs-code-extensions": "stable",
+    "microsoft": "stable",
+    "redhat": "stable",
+    "rust-lang": "stable",
+    "swiftlang": "stable"
+}
