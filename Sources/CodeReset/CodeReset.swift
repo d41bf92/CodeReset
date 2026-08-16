@@ -32,28 +32,27 @@ struct CodeReset: ParsableCommand {
 
         try FileManager.default.createDirectory(at: tempDataURL, withIntermediateDirectories: true)
 
-        do {
-            if keepArgvJSON {
-                try copyItem(at: codeDataURL, to: tempDataURL, path: "argv.json")
-            }
-
-            if keepExtensions {
-                try copyItem(at: codeDataURL, to: tempDataURL, path: "extensions")
-            }
-
-            if keepLanguagepacksJSON {
-                try copyItem(at: codeDataURL, to: tempDataURL, path: "user-data/languagepacks.json")
-            }
-
-            if keepSettingsJSON {
-                try copyItem(at: codeDataURL, to: tempDataURL, path: "user-data/User/settings.json")
-            }
-
-            _ = try FileManager.default.replaceItemAt(codeDataURL, withItemAt: tempDataURL)
-        } catch {
-            print(error)
-            try FileManager.default.removeItem(at: tempDataURL)
+        defer {
+            try? FileManager.default.removeItem(at: tempDataURL)
         }
+
+        if keepArgvJSON {
+            try copyItem(at: codeDataURL, to: tempDataURL, path: "argv.json")
+        }
+
+        if keepExtensions {
+            try copyItem(at: codeDataURL, to: tempDataURL, path: "extensions")
+        }
+
+        if keepLanguagepacksJSON {
+            try copyItem(at: codeDataURL, to: tempDataURL, path: "user-data/languagepacks.json")
+        }
+
+        if keepSettingsJSON {
+            try copyItem(at: codeDataURL, to: tempDataURL, path: "user-data/User/settings.json")
+        }
+
+        _ = try FileManager.default.replaceItemAt(codeDataURL, withItemAt: tempDataURL)
 
         if deployConfigurationProfile {
             let profileURL = try createProfile()
